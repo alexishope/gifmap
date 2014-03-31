@@ -1,9 +1,13 @@
 if (Meteor.isClient) {
-  Template.hello.greeting = function () {
-    return "Welcome to gifmapnew.";
+  Template.map.greeting = function () {
+    return "Welcome to gifmap.new";
   };
 
-  Template.hello.events({
+  Template.map.rendered = function(){
+    console.log("I'm here");
+  };
+
+  Template.map.events({
     'click input': function () {
       // template data, if any, is available in 'this'
       if (typeof console !== 'undefined')
