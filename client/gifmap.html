@@ -5,7 +5,9 @@
 <body>
     <div class="logo">GIFGIFmap</div>
     {{> emotions }}
-    {{> map }}
+    {{#if countriesReady}}
+      {{> map }}
+    {{/if}}
     {{> map_info_box }}
 </body>
 

@@ -1,8 +1,10 @@
 dataSub = null
 Meteor.subscribe "metricPub"
-Meteor.subscribe "countriesPub"
+onCountriesDataReady = -> Session.set "countriesDataReady", true
 onResultsDataReady = -> Session.set "resultsDataReady", true
 onCountDataReady = -> Session.set "countDataReady", true
+
+Meteor.subscribe "countriesPub", onCountriesDataReady
 
 Deps.autorun ->
     dataSub?.stop()

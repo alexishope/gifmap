@@ -3,6 +3,7 @@
 @countriesOverThreshold = ['AU', 'DE', 'GB', 'SE', 'FR', 'US', 'PL', 'CA', 'BR', 'CH', 'ES', 'RU', 'HU', 'NO', 'NL', 'PT', 'DK', 'MX', 'AT', 'IT', 'BE']
 
 Handlebars.registerHelper "dataReady", -> (Session.get("resultsDataReady") and Session.get("countDataReady"))
+Handlebars.registerHelper "countriesReady", -> Session.get("countriesDataReady")
 
 Meteor.startup ->
   Session.setDefault("hover", false)
