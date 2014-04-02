@@ -3,23 +3,55 @@
 </head>
 
 <body>
-  <div class="logo">GIFGIFmap</div>
-  <div class="map_info_box">
-  	<div class="info_box_country">Kenya</div>
-  	<div class="info_box_text">Top GIF for Amusement:</div>
-  	<div class="info_box_top_gif"></div>
-   	<div class="info_box_text">Number of votes for this Country:</div>
-   	<div class="info_box_votes">4,765</div>
-
-
-  </div>
-
-
-  {{!>map}}
-
+    <div class="logo">GIFGIFmap</div>
+    {{> emotions }}
+    {{> map }}
+    {{> map_info_box }}
 </body>
 
-
 <template name="map">
+    {{resize}}
+    <div id="viz" class="map">
+        {{> map_svg}}
+    </div>
+</template>
 
+<template name="emotions">
+  <div class="results-left">
+    <ul class="metrics">
+      {{#each metrics}}
+        {{> metric}}
+      {{/each}}
+    </ul>
+  </div>
+</template>
+
+<template name="metric">
+    <li class="metric{{selected}}" data-emotion="{{metric}}">{{metric}}</li>
+</template>
+
+<template name="map_info_box">
+    {{#if hover}}
+        {{#if dataReady}}
+        <div class="map_info_box">
+            <div class="info_box_country">{{countryName}}</div>
+            <div class="num_votes">{{numVotes}} Votes</div>
+            <div class="info_box_text">Top GIFs for <span class="emotion">{{emotion}}</span>:</div>
+            
+            {{#each topGifs}}
+            <div class="info_box_top_gif">
+              <img class="result" src="{{embedLink}}" />
+              <div class="search-result-overlay"> <span class="resultNum">#{{resultNum}}</span><span class="score">{{score}}</span></div>
+            </div>
+            {{/each}}
+            
+    <!--         <div class="info_box_text">Number of votes for this Country:</div>
+            <div class="info_box_votes">4,765</div> -->
+        {{/if}}
+    </div>
+    {{/if}}
+</template>
+
+<template name="map_svg">
+    <svg width="{{properties.width}}" height="{{properties.height}}"></svg>
 </template>

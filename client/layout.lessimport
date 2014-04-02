@@ -92,14 +92,14 @@
 	-moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
 }
 
-html { 
-	height: 100%; 
+html {
+	height: 100%;
 	.no-select;
 }
 
-body { 
-	height: 100%; 
-	overflow-y: scroll;
+body {
+	height: 100%;
+	overflow-y: hidden;
 	overflow-x: hidden;
 	background-image: url(/dark.png);
 	background-repeat: repeat;
@@ -108,6 +108,7 @@ body {
 	font-weight: light;
 	font-size: 2em;
 	color: @gifgif-white;
+	margin: 0;
 }
 
 header {
@@ -145,13 +146,16 @@ header {
 	}
 
 	.logo {
+		position: fixed;
+		left: 50%;
 		margin:0 auto;
 		padding-top: 20px;
-		width: 340px;
+		margin-left: -150px;
+		width: 300px;
 		height: 100px;
 		text-align: center;
 		background-image: url(/gradient.png);
-		background-position: center; 
+		background-position: center;
 		background-repeat: no-repeat;
 		// font-family: "Helvetica", "Numans";
 		img {
@@ -159,7 +163,7 @@ header {
 			width: 320px;
 			height: auto;
 		}
-		
+
 		img.logo-white {
 			.opacity-transition;
 			&:hover, &.hovered {
@@ -175,7 +179,7 @@ header {
 			padding-top: 35px;
 		}
 	}
-	
+
 }
 
 // Taking shortcuts for results prototype
@@ -250,13 +254,13 @@ footer {
 		font-size:.5em;
 		vertical-align: bottom;
 		position: absolute;
-		left:0px; 
+		left:0px;
 		bottom:3px;
 	}
 
 	.sharing_buttons {
 		position: absolute;
-		left:30%; 
+		left:30%;
 		bottom:3px;
 		width:40%;
 		float:left;
@@ -273,16 +277,18 @@ footer {
 				text-decoration: none;
 			}
 		}
-		
+
 	}
 
 
 }
 
 .logo{
-	font-size: 3.5em;
-	font-weight:bold;
-	margin:auto;
+	position: fixed;
+	left: 50%;
+	margin-left: -200px;
+	font-size: 2.5em;
+	font-weight: bold;
 	width: 600px;
 	&:hover{
 		.blue-with-shadow;
@@ -311,31 +317,13 @@ footer {
 }*/
 
 .map_info_box {
+	pointer-events: none;
+    position: absolute;
+    bottom: 0;
+    left: 300px;
+
 	height: 400px;
-	width: 300px;
-	border-top: 1px solid @gifgif-white;
-	border-bottom: 1px solid @gifgif-white;
-	padding-top:30px;
-	padding-bottom: 40px;
-	/*position:relative;*/
-	.no-select;
-
-	-moz-box-shadow:    inset  0  8px 8px -8px @gifgif-white, 
-	inset  0 -8px 8px -8px @gifgif-white;
-	-webkit-box-shadow: inset  0  8px 8px -8px @gifgif-white, 
-	inset  0 -8px 8px -8px @gifgif-white;
-	box-shadow:        inset  0  8px 8px -8px @gifgif-white, 
-	inset  0 -8px 8px -8px @gifgif-white;
-
-	&:hover{
-		.shadow-transition;
-		-moz-box-shadow:    inset  0  15px 15px -15px @gifgif-blue, 
-		inset  0 -15px 15px -15px @gifgif-blue;
-		-webkit-box-shadow: inset  0  15px 15px -15px @gifgif-blue, 
-		inset  0 -15px 15px -15px @gifgif-blue;
-		box-shadow:        inset  0  15px 15px -15px @gifgif-blue, 
-		inset  0 -15px 15px -15px @gifgif-blue;
-	}   
+	width: 1000px;
 }
 
 .info_box_country {
@@ -345,18 +333,31 @@ footer {
 	color:white;
 }
 
-.info_box_text {
-	margin-top:25px;
-	text-align:center;
-	font-size:.5em;
+.num_votes, .info_box_text {
+	text-align: center;
+	font-size: .5em;
+
+	span {
+		text-transform: capitalize;
+	}
+}
+
+.num_votes {
+	margin-top: 10px;
 }
 
 .info_box_top_gif {
-	height:165px;
-	width:165px;
-	background-color:white;
-	margin:auto;
-	margin-top:15px;
+	position: relative;
+	height:200px;
+	width:200px;
+	float: left;
+	display: inline;
+	margin: 0 auto;
+
+	img {
+		height: 100%;
+		width: 100%;
+	}
 }
 
 .info_box_votes {
@@ -365,3 +366,57 @@ footer {
 	margin-top:15px;
 }
 
+.results-left {
+	position: absolute;
+	text-align: right;
+	width: 200px;
+	float: left;
+	font-size: 1.25rem;
+	text-transform: capitalize;
+	border-right: 1px solid rgba(214,214,214,0.30);
+	margin-top: 150px;
+	background-color: rgba(0, 0, 0, 0.85);
+
+	ul {
+		margin: 0;
+		margin-right: 12px;
+		li {
+			display: block;
+			margin-bottom: 5px;
+			&:hover{
+				.blue-with-shadow;
+				.text-shadow-transition;
+				.color-transition;
+				cursor: pointer;
+			}
+			&.selected {
+				color: @gifgif-blue;
+			}
+		}
+	}
+}
+
+.search-result-overlay{
+	position:absolute;
+	font-size: 15px;
+	bottom: 0px;
+	left: 0px;
+	background-color: rgba(0, 0, 0, 0.8);
+	width: 200px;
+	color: @gifgif-white;
+	height: 18px;
+	pointer-events: none;
+	text-transform: capitalize;
+
+	.resultNum{
+		float: left;
+		text-align: left;
+		padding-left: 5px;
+	}
+	.score{
+		float: right;
+		text-align: right;
+		position: absolute;
+		right:5px;
+	}
+}
